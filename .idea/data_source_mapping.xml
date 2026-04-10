@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/prisma/migrations/20260407164055_init/migration.sql" value="d59ca90b-5b37-4163-abd8-e7e07b3b3a83" />
+    <file url="file://$PROJECT_DIR$/prisma/migrations/20260407172442/migration.sql" value="d59ca90b-5b37-4163-abd8-e7e07b3b3a83" />
+  </component>
+</project>

@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+
+  priority    Priority @default(MEDIUM)
+  status      Status   @default(TODO)
+
+  dueDate     DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tags        String[]
+  parentId    String?
+  parent      Task?    @relation("Subtasks", fields: [parentId], references: [id])
+  subtasks    Task[]   @relation("Subtasks")
+
+  @@index([status])
+  @@index([priority])
+  @@index([dueDate])
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Status {
+  TODO
+  IN_PROGRESS
+  DONE
+}
