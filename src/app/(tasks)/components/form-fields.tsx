@@ -19,14 +19,16 @@ import { Controller, useForm } from "react-hook-form";
 import {
   AddTaskFormFields,
   AddTaskFormType,
-  AddTaskType,
   EditTaskFormFields,
   EditTaskFormType,
+} from "@/schemas/tasks.client";
+import {
+  AddTaskType,
   EditTaskType,
   priorityLabel,
   statusLabel,
   Task,
-} from "@/schemas/tasks";
+} from "@/schemas/tasks.sever";
 
 const ruLocale =
   ruRU.components.MuiLocalizationProvider.defaultProps.localeText;

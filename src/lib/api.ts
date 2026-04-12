@@ -1,12 +1,11 @@
+import "dotenv/config";
+
 import axios from "axios";
 
-export const LOCAL_API_URL = "http://localhost:3000";
-
 export const api = axios.create({
-  baseURL: LOCAL_API_URL,
+  baseURL: process.env.LOCAL_API_URL,
 });
 
-// 🔥 Global response interceptor
 api.interceptors.response.use(
   (response) => response,
   (error) => {

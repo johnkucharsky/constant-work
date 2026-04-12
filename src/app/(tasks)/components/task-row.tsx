@@ -7,7 +7,7 @@ import RemoveAndEdit from "@/app/(tasks)/components/remove-and-edit";
 import TitleCellContent from "@/app/(tasks)/components/title-cell-content";
 import { COLORS } from "@/app/tokens";
 import { formatDateTime } from "@/lib/date";
-import { priorityLabel, statusLabel, Task } from "@/schemas/tasks";
+import { priorityLabel, statusLabel, Task } from "@/schemas/tasks.sever";
 
 export default function TaskRow({
   selected,
@@ -60,10 +60,7 @@ export default function TaskRow({
       </TableCell>
       <TableCell align="center">
         {row.dueDate !== null ? (
-          <div>
-            <Typography>{formatDateTime(row.dueDate).time}</Typography>
-            <Typography>{formatDateTime(row.dueDate).date}</Typography>
-          </div>
+          <Typography>{formatDateTime(row.dueDate).date}</Typography>
         ) : null}
       </TableCell>
       <TableCell align="center">

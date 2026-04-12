@@ -9,7 +9,7 @@ import {
   TaskQuerySchema,
   TaskResponse,
   TaskResponseSchema,
-} from "@/schemas/tasks";
+} from "@/schemas/tasks.sever";
 
 const LIMIT = 5;
 

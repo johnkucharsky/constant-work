@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "lint": "tsc --noEmit && eslint",
     "start": "next start",
     "migrate:dev": "npx prisma migrate dev",
@@ -33,10 +33,12 @@
     "react-hook-form": "^7.72.1",
     "react-hot-toast": "^2.6.0",
     "react-number-format": "^5.4.5",
+    "swagger-ui-react": "^5.32.2",
     "swr": "^2.4.1",
     "usehooks-ts": "^3.1.1",
     "yup": "^1.7.1",
     "zod": "^4.3.6",
+    "zod-openapi": "^5.4.6",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
@@ -44,6 +46,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/swagger-ui-react": "^5.18.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-plugin-react-hooks": "^7.0.1",

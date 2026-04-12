@@ -1,4 +1,4 @@
-import { Task } from "@/schemas/tasks";
+import { Task } from "@/schemas/tasks.sever";
 
 export interface TaskHeadCell {
   id: keyof Task;

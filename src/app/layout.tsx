@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { SWRConfigWrapper } from "@/lib/swr-wrapper";
 import theme from "@/theme";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

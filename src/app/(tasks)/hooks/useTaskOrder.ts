@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import { Order } from "@/app/types";
-import { Task } from "@/schemas/tasks";
+import { Task } from "@/schemas/tasks.sever";
 
 type TaskOrderState = {
   order: Order;

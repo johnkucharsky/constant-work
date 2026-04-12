@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { AddTaskSchema, TaskQuery, TaskQuerySchema } from "@/schemas/tasks";
+import {
+  AddTaskSchema,
+  DeleteManyTasksSchema,
+  TaskQuery,
+  TaskQuerySchema,
+} from "@/schemas/tasks.sever";
 import { tasksService } from "@/server/modules/tasks-service";
 import { withErrorHandling } from "@/server/withErrorHandling";
 
@@ -23,4 +28,13 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   const result = await tasksService.add(parsed);
 
   return NextResponse.json(result, { status: 201 });
+});
+
+export const DELETE = withErrorHandling(async (req: NextRequest) => {
+  const body = await req.json();
+  const parsedBody = DeleteManyTasksSchema.parse(body);
+
+  const result = await tasksService.removeMany(parsedBody);
+
+  return NextResponse.json(result, { status: 200 });
 });

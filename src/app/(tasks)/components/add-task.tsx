@@ -4,7 +4,8 @@ import useSWRMutation from "swr/mutation";
 import FormFields from "@/app/(tasks)/components/form-fields";
 import { useTasks } from "@/app/(tasks)/hooks/useTasks";
 import { api } from "@/lib/api";
-import { AddTaskFormSchema, AddTaskType } from "@/schemas/tasks";
+import { AddTaskFormSchema } from "@/schemas/tasks.client";
+import { AddTaskType } from "@/schemas/tasks.sever";
 
 export default function AddTask({
   open,

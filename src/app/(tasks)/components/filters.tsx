@@ -16,7 +16,7 @@ import { Priority, Status } from "@root/generated/prisma/enums";
 import { ru } from "date-fns/locale";
 
 import { useTaskFilters } from "@/app/(tasks)/hooks/useTaskFilters";
-import { priorityLabel, statusLabel } from "@/schemas/tasks";
+import { priorityLabel, statusLabel } from "@/schemas/tasks.sever";
 
 const ruLocale =
   ruRU.components.MuiLocalizationProvider.defaultProps.localeText;

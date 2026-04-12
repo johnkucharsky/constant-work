@@ -12,7 +12,7 @@ import { ChangeEvent, MouseEvent } from "react";
 
 import { COLORS } from "@/app/tokens";
 import { Order, TaskHeadCell } from "@/app/types";
-import { Task } from "@/schemas/tasks";
+import { Task } from "@/schemas/tasks.sever";
 
 const headCells: TaskHeadCell[] = [
   {

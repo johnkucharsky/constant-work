@@ -2,12 +2,13 @@ import { Prisma, Task as PrismaTask } from "@root/generated/prisma/client";
 
 import {
   AddTaskType,
+  DeleteManyTasksType,
   EditTaskType,
-  Task,
+  SingleTaskResponseType,
   TaskParamsType,
   TaskQuery,
   TaskResponse,
-} from "@/schemas/tasks";
+} from "@/schemas/tasks.sever";
 import { prisma } from "@/server/prisma";
 
 export const tasksService = {
@@ -87,7 +88,7 @@ export const tasksService = {
     };
   },
 
-  async remove({ id }: TaskParamsType): Promise<{ data: Task }> {
+  async remove({ id }: TaskParamsType): Promise<SingleTaskResponseType> {
     const deletedTask = await prisma.task.delete({
       where: { id },
     });
@@ -97,7 +98,9 @@ export const tasksService = {
     };
   },
 
-  async edit(data: EditTaskType & TaskParamsType): Promise<{ data: Task }> {
+  async edit(
+    data: EditTaskType & TaskParamsType,
+  ): Promise<SingleTaskResponseType> {
     const { id, ...updateData } = data;
 
     const cleanData = Object.fromEntries(
@@ -118,12 +121,23 @@ export const tasksService = {
       data: serializeTask(updatedTask),
     };
   },
-  async add(data: AddTaskType): Promise<{ data: Task }> {
+  async add(data: AddTaskType): Promise<SingleTaskResponseType> {
     const createdTask = await prisma.task.create({ data });
 
     return {
       data: serializeTask(createdTask),
     };
+  },
+  async removeMany({ ids }: DeleteManyTasksType): Promise<{ count: number }> {
+    const result = await prisma.task.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    return { count: result.count };
   },
 };
 

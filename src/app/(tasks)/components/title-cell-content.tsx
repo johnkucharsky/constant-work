@@ -1,7 +1,7 @@
 import { Box, Tooltip, Typography } from "@mui/material";
 
 import { useTextOverflow } from "@/lib/useTextOverflow";
-import { Task } from "@/schemas/tasks";
+import { Task } from "@/schemas/tasks.sever";
 
 export default function TitleCellContent({
   title,

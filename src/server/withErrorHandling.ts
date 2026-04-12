@@ -4,8 +4,10 @@ import { ZodError } from "zod";
 
 import { CommonError } from "@/app/types";
 
-// TS2344: Type T does not satisfy the constraint "/api/tasks"
-// Type string is not assignable to type "/api/tasks"
+const prismaErrorMap: Record<string, string> = {
+  P2002: "Unique constraint failed",
+  P2025: "Record not found",
+};
 
 export function withErrorHandling<TParams = unknown>(
   handler: (req: NextRequest, context: TParams) => Promise<Response>,
@@ -14,43 +16,59 @@ export function withErrorHandling<TParams = unknown>(
     try {
       return await handler(req, context);
     } catch (err) {
-      console.error({ ApiHandledError: err });
+      // Always log full error internally
+      console.error("API Error:", err);
+
+      /**
+       * 1. Prisma connection / initialization errors (Docker down, DB unreachable)
+       */
+      if (
+        err instanceof Prisma.PrismaClientInitializationError ||
+        err instanceof Prisma.PrismaClientRustPanicError
+      ) {
+        return NextResponse.json<CommonError>(
+          {
+            name: err.name,
+            message: "Database is not available. Did you start Docker?",
+          },
+          { status: 503 },
+        );
+      }
+
+      /**
+       * 2. Prisma known request errors (bad queries, constraints, etc.)
+       */
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         return NextResponse.json<CommonError>(
           {
             name: err.name,
-            message: err.message,
-            details: JSON.stringify(err.meta),
+            message: prismaErrorMap[err.code] ?? "Database query failed",
+            details: err.meta ? JSON.stringify(err.meta) : undefined,
           },
           { status: 400 },
         );
       }
 
+      /**
+       * 3. Validation errors (Zod)
+       */
       if (err instanceof ZodError) {
         return NextResponse.json<CommonError>(
           {
             name: err.name,
-            message: err.message,
-            details: err.issues.toString(),
+            message: "Validation failed",
+            details: err.issues.map((i) => i.message).join(", "),
           },
           { status: 400 },
         );
       }
 
-      if (err instanceof Error) {
-        return NextResponse.json(
-          {
-            error: err.name,
-            message: err.message,
-            details: err.stack ?? "" + err.cause,
-          },
-          { status: 500 },
-        );
-      }
-
+      /**
+       * 4. Fallback (never leak internals)
+       */
       return NextResponse.json(
         {
-          error: "UnknownError",
+          error: "InternalServerError",
           message: "Something went wrong",
         },
         { status: 500 },

@@ -5,7 +5,7 @@ import SearchBar from "@/app/(tasks)/components/search-bar";
 import TaskTable from "@/app/(tasks)/components/task-table";
 import { CommonError } from "@/app/types";
 import { url } from "@/lib/url-builder";
-import { TaskResponse } from "@/schemas/tasks";
+import { TaskResponse } from "@/schemas/tasks.sever";
 
 export const dynamic = "force-dynamic";
 

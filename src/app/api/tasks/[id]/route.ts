@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { EditTaskSchema, TaskParamsSchema } from "@/schemas/tasks";
+import { EditTaskSchema, TaskParamsSchema } from "@/schemas/tasks.sever";
 import { tasksService } from "@/server/modules/tasks-service";
 import { withErrorHandling } from "@/server/withErrorHandling";
 

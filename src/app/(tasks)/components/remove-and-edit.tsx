@@ -16,7 +16,8 @@ import FormFields from "@/app/(tasks)/components/form-fields";
 import { usePopover } from "@/app/(tasks)/hooks/usePopover";
 import { useTasks } from "@/app/(tasks)/hooks/useTasks";
 import { api } from "@/lib/api";
-import { EditTaskFormSchema, EditTaskType, Task } from "@/schemas/tasks";
+import { EditTaskFormSchema } from "@/schemas/tasks.client";
+import { EditTaskType, Task } from "@/schemas/tasks.sever";
 
 export default function RemoveAndEdit({ task }: { task: Task }) {
   const [dialogOpened, setDialogOpened] = useState(false);
